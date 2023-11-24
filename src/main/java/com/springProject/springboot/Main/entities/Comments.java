@@ -11,21 +11,21 @@ public class Comments {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
+        private long id;
         private String email;
 
-        public int getId() {
+        public long getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(long id) {
             this.id = id;
         }
 
         private String comment;
-        private int post_id;
-        private final Date created_at = new Date();
-        private Date updated_at;
+        private int postId;
+        private final Date createdAt = new Date();
+        private Date updatedAt;
 
         private String name;
 
@@ -53,26 +53,24 @@ public class Comments {
             this.comment = comment;
         }
 
-        public int getPost_id() {
-            return post_id;
+        public int getPostId() {
+            return postId;
         }
 
-        public void setPost_id(int post_id) {
-            this.post_id = post_id;
+        public void setPostId(int postId) {
+            this.postId = postId;
         }
 
-        public Date getCreated_at() {
-            return created_at;
+        public Date getCreatedAt() {
+            return createdAt;
         }
 
-        public Date getUpdated_at() {
-            return updated_at;
+        public Date getUpdatedAt() {
+            return updatedAt;
         }
 
-        public void setUpdated_at(Date updated_at) {
-            this.updated_at = updated_at;
+        public void setUpdatedAt(Date updatedAt) {
+            this.updatedAt = updatedAt;
         }
-
-    }
 
 }

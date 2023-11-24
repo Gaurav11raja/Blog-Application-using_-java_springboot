@@ -11,21 +11,21 @@ import java.util.Date;
 public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String title;
     private String excerpt;
     private String content;
     private String author;
-    private Date published_at;
-    private String is_published;
-    private Date created_at=new Date();
-    private Date updated_at;
+    private Date publishedAt;
+    private String isPublished;
+    private Date createdAt =new Date();
+    private Date updatedAt;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,36 +61,35 @@ public class Posts {
         this.author = author;
     }
 
-    public Date getPublished_at() {
-        return published_at;
+    public Date getPublishedAt() {
+        return publishedAt;
     }
 
-    public void setPublished_at(Date published_at) {
-        this.published_at = published_at;
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
-    public String getIs_published() {
-        return is_published;
+    public String getIsPublished() {
+        return isPublished;
     }
 
-    public void setIs_published(String is_published) {
-        this.is_published = is_published;
+    public void setIsPublished(String isPublished) {
+        this.isPublished = isPublished;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created) {
-        created=new Date();
-        this.created_at = created;
+    public void setCreatedAt(Date created) {
+        this.createdAt = created;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
