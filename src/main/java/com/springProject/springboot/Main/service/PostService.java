@@ -3,6 +3,9 @@ package com.springProject.springboot.Main.service;
 import com.springProject.springboot.Main.Repository.PostRepository;
 import com.springProject.springboot.Main.entities.Posts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +45,16 @@ public class PostService {
     @Transactional
     public void delete(long id) {
         postRepository.deleteById(id);
+    }
+
+    public Page<Posts> findPaginated(int page, int size, String toggle) {
+        Pageable pageable = PageRequest.of(page, size);
+        if(toggle != null)
+        {
+            return postRepository.findAllByOrderByCreatedDesc(pageable);
+        }
+        else
+            return postRepository.findAll(pageable);
     }
 
 

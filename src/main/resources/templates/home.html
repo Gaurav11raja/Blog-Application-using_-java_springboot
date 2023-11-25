@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{styles.css}" />
+    <link rel="stylesheet" th:href="@{homeStyle.css}" />
     <title>Blog - List of Posts</title>
 </head>
 <body>
 
 <header>
-    <h1>My Blog Application</h1>
-    <a th:href="@{/showForm}">Create new Post</a>
+    <h1>My Blog Application</h1><br><br>
+    <a th:href="@{/showForm}">
+        <button>Create new Post</button>
+    </a><br><br>
+    <form th:action="@{/{toggle}( toggle = ${toggle})}" method="get">
+        <input type="hidden" name = "toggle" value = "toggle">
+        <button>Sort(new to old)</button>
+    </form>
+
+    <br>
+    <a th:href="@{/}">
+        <button>Default</button>
+    </a><br><br>
 </header>
 <main>
     <section class="blog-list">
@@ -20,6 +31,16 @@
             <a th:href="@{/viewPost/{id}(id=${posts.id})}">Read More</a>
         </article>
     </section>
+    <div th:if="${post.totalPages > 1}">
+        <ul class="pagination">
+            <li th:if="${post.hasPrevious()}" class="page-item">
+                <a class="page-link" th:href="@{/(page=${post.number - 1},size=${post.size})}">Previous</a>
+            </li>
+            <li th:if="${post.hasNext()}" class="page-item">
+                <a class="page-link" th:href="@{/(page=${post.number + 1},size=${post.size})}">Next</a>
+            </li>
+        </ul>
+    </div>
 </main>
 
 </body>
