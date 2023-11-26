@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" th:href="@{/formStyle.css}" />
     <title>Blog - Create/Update Post</title>
 </head>
 <body>
 
 <header>
     <h1>My Blog Application</h1><br><br>
-    <a th:href="@{/showHome}">Back to List</a><br><br>
+    <a th:href="@{/}">Back to List</a><br><br>
 </header>
 
 <main>
@@ -29,11 +29,11 @@
             <input type="text" id="excerpt" name="excerpt" th:field="*{excerpt}" required><br><br>
 
             <label for="tags">Tags:</label><br><br>
-            <input type="text" id="tags" name="tags"><br><br>
+            <input type="text" id="tags" name="tagStore" required><br><br>
 
 
             <label for="content">Content:</label><br><br>
-            <textarea id="content" name="content" rows="6" th:field="*{content}" required></textarea><br><br>
+            <textarea id="content" rows="6" th:field="*{content}" required></textarea><br><br>
 
             <button type="submit">Save Post</button><br><br>
         </form>
@@ -41,9 +41,6 @@
 
 </main>
 
-<footer>
-    <p>&copy; 2023 My Blog Application</p>
-</footer>
 
 </body>
 </html>

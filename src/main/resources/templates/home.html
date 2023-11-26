@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{homeStyle.css}" />
+    <link rel="stylesheet" th:href="@{/homeStyle.css}" />
     <title>Blog - List of Posts</title>
 </head>
 <body>
@@ -21,10 +21,29 @@
         <input type="hidden" name = "toggle" value = "toggle">
         <button>Sort(new to old)</button>
     </form>
-
     <br>
+    <form th:action="@{/filter}" method="post">
+        <label for="author">Filter by Author:</label>
+        <select id="author" name="author" multiple>
+            <!-- Populate the dropdown options dynamically from the database -->
+            <th:block th:each="author : ${allAuthor}">
+                <option name="author" th:text="${author}"></option>
+            </th:block>
+        </select>
+
+        <label for="tags">Filter by Tags:</label>
+        <select id="tags" name="tags" multiple>
+
+            <th:block th:each="tags : ${allTags}">
+                <option name="tags" th:text="${tags.name}"></option>
+            </th:block>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
     <a th:href="@{/}">
-        <button>Sort(old to new)</button>
+        <button>Default</button>
     </a><br><br>
 </header>
 <main>

@@ -24,8 +24,13 @@ public class Comments {
 
         private String comment;
         private int postId;
-        private final Date createdAt = new Date();
-        private Date updatedAt;
+        private Date createdAt;
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    private Date updatedAt;
 
         private String name;
 

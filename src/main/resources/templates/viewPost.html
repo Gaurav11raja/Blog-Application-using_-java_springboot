@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" th:href="@{/viewPostStyle.css}" />
     <title>Blog - Single Post</title>
 </head>
 <body>
 
 <header>
     <h1>My Blog Application</h1>
-    <a th:href="@{/showForm}">Create new Post</a>
+    <a th:href="@{/showForm}">Create new Post</a><br>
+    <a th:href="@{/}">Back to List</a><br><br>
 </header>
 
 <main>
     <article class="single-post">
         <h2 th:text="${post.title}"></h2>
+        <h4 th:text="'By : '+${post.author}"></h4>
         <p class="excerpt" th:text="${post.excerpt}"></p>
+        <p class="tags">
+            Tags:
+            <span th:each="tag, tagStatus : ${post.tags}" th:text="${tag.name}+','"  >
+    </span>
+        </p>
         <p class="content" th:text="${post.content}"></p>
-        <a th:href="@{/}">Back to List</a><br><br>
     </article>
     <form th:action="@{/editPost/{id}(id=${post.id})}" method="post">
         Edit the Post:-

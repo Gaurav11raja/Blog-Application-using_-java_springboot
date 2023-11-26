@@ -4,6 +4,7 @@ package com.springProject.springboot.Main.controller;
 import com.springProject.springboot.Main.entities.Posts;
 import com.springProject.springboot.Main.entities.Tags;
 import com.springProject.springboot.Main.service.PostService;
+import com.springProject.springboot.Main.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,12 +21,14 @@ public class PostController {
     private PostService postService;
     private TagController tagController;
     private CommentController commentController;
+    private TagsService tagService;
 
     @Autowired
-    public PostController(PostService postService,TagController tagController,CommentController commentController){
+    public PostController(PostService postService,TagController tagController,CommentController commentController,TagsService tagsService){
         this.postService =postService;
         this.tagController =tagController;
         this.commentController=commentController;
+        this.tagService=tagsService;
     }
 
     @GetMapping("/")
@@ -40,7 +44,9 @@ public class PostController {
             Page<Posts> postsPage = postService.findPaginated(page, size, toggle);
             model.addAttribute("post", postsPage);
         }
-
+        List<Tags> allTags = tagService.getAllTags();
+        model.addAttribute("allAuthor",postService.getAllAuthors());
+        model.addAttribute("allTags", allTags);
         model.addAttribute("currentPage", page);
 
         return "home";
@@ -96,5 +102,16 @@ public class PostController {
         postService.delete(id);
         return "redirect:/";
     }
+
+    @PostMapping("/filter")
+    public String filterPosts(@RequestParam(name = "author",required = false) List<String> author,
+                              @RequestParam(name = "tags",required = false) List<String> tags,
+                              Model model) {
+        List<Posts> filteredPosts = postService.filterPosts(author, tags);
+        model.addAttribute("post", filteredPosts);
+
+        return "filter";
+    }
+
 }
 
