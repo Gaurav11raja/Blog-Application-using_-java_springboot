@@ -13,6 +13,10 @@
     <a th:href="@{/showForm}">
         <button>Create new Post</button>
     </a><br><br>
+    <form th:action="@{/}" method="get">
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
     <form th:action="@{/{toggle}( toggle = ${toggle})}" method="get">
         <input type="hidden" name = "toggle" value = "toggle">
         <button>Sort(new to old)</button>
@@ -20,7 +24,7 @@
 
     <br>
     <a th:href="@{/}">
-        <button>Default</button>
+        <button>Sort(old to new)</button>
     </a><br><br>
 </header>
 <main>

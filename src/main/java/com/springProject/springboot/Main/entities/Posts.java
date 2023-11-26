@@ -1,25 +1,43 @@
 package com.springProject.springboot.Main.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String title;
+    @Column(columnDefinition = "text")
     private String excerpt;
+    @Column(columnDefinition = "text")
     private String content;
     private String author;
     private Date publishedAt;
     private String isPublished;
     private Date createdAt =new Date();
     private Date updatedAt;
+
+    @ManyToMany
+    @JoinTable(
+            name = "post_tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tags> tags = new HashSet<>();
+
+    public Set<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tags> tags) {
+        this.tags = tags;
+    }
 
     public long getId() {
         return id;

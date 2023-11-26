@@ -24,7 +24,7 @@ public class PostService {
 
 
     @Transactional
-    public void save(Posts posts) {
+    public void savePost(Posts posts) {
         posts.setIsPublished("Yes");
         posts.setUpdatedAt(new Date());
         posts.setCreatedAt(new Date());
@@ -66,5 +66,9 @@ public class PostService {
         posts.setCreatedAt(post.getCreatedAt());
         posts.setUpdatedAt(new Date());
         postRepository.save(posts);
+    }
+
+    public Page<Posts> fullTextSearch(String search, Pageable pageable) {
+        return postRepository.fullTextSearch(search, pageable);
     }
 }
