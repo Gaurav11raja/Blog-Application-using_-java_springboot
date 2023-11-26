@@ -1,9 +1,7 @@
 package com.springProject.springboot.Main.service;
 
 import com.springProject.springboot.Main.Repository.CommentRepository;
-import com.springProject.springboot.Main.dao.CommentDao;
 import com.springProject.springboot.Main.entities.Comments;
-import com.springProject.springboot.Main.entities.Posts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

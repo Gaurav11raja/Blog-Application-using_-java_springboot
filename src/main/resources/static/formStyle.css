@@ -1,0 +1,66 @@
+
+body {
+    color: black;
+    background-color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+form-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+header {
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+}
+
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+/* Style the form button */
+button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+/* Style the link */
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Style the link on hover */
+a:hover {
+    text-decoration: underline;
+}
