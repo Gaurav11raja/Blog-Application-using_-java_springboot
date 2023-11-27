@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{filterStyle.css}" />
+    <title>Blog - Filter Post</title>
+</head>
+<body>
+
+<header>
+    <h1>My Blog Application</h1><br><br>
+    <a th:href="@{/}">Back to Home</a><br><br>
+</header>
+
+<main>
+    <section class="blog-list">
+        <h1>Filtered Posts</h1>
+        <span th:if="${post.isEmpty()}" th:text="'NO RESULT FOUND'"></span>
+        <article th:each="post : ${post}">
+            <h2 th:text="${post.title}"></h2>
+            <p class="excerpt" th:text="${post.excerpt}"></p>
+            <a th:href="@{/viewPost/{id}(id=${post.id})}">Read More</a>
+        </article>
+
+    </section>
+</main>
+
+</body>
+</html>

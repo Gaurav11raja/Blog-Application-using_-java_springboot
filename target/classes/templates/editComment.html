@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/viewPostStyle.css}" />
+    <title>Blog - Single Post</title>
+</head>
+<body>
+
+<header>
+    <h1>My Blog Application</h1>
+    <a th:href="@{/}">Back to Home</a><br><br>
+</header>
+
+<main>
+
+    <section>
+        <form th:action="@{/updateComment/{id}(id=${comments.id})}" method="post" th:object="${comments}">
+            <h2 th:text="${comments.name}"></h2>
+            <p th:text="${comments.email}"></p>
+
+            <label for="comment">Comment:</label><br><br>
+            <textarea id="comment" name="comment" rows="6" th:field="*{comment}" required></textarea><br><br>
+
+            <button type="submit">Comment</button><br>
+
+        </form>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -23,9 +23,10 @@ public class CommentService {
     }
 
     @Transactional
-    public void save(Comments comments){
+    public void save(Comments comments,int postId){
         comments.setCreatedAt(new Date());
         comments.setUpdatedAt(new Date());
+        comments.setPostId(postId);
         commentRepository.save(comments);
     }
 
@@ -45,6 +46,7 @@ public class CommentService {
         comments.setUpdatedAt(new Date());
         comments.setCreatedAt(comment.getCreatedAt());
         comments.setName(comment.getName());
+        comments.setPostId(comment.getPostId());
         commentRepository.save(comments);
 
     }

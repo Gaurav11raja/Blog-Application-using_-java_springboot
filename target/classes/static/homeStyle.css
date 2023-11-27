@@ -1,0 +1,89 @@
+/* homeStyle.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    /* Add navbar styles */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Style navbar buttons */
+header button {
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+header button:hover {
+    background-color: #777;
+}
+
+main {
+    padding: 20px;
+}
+
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+article {
+    width: calc(50% - 20px);
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+article h2 {
+    margin-bottom: 10px;
+}
+
+.article .excerpt {
+    color: #666;
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: large;
+}
+
+.page-link {
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+}
+
+.page-link:hover {
+    background-color: #eee;
+}

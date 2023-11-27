@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Posts,Long> {
 
-    Page<Posts> findAllByOrderByCreatedDesc(Pageable pageable);
+    Page<Posts> findAllByOrderByCreatedAtDesc(Pageable pageable);
     @Query("SELECT p FROM Posts p WHERE " +
             "LOWER(p.title) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(p.content) LIKE LOWER(CONCAT('%', :search, '%')) OR " +

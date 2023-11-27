@@ -26,8 +26,8 @@ public class CommentController {
     }
 
     @PostMapping("/saveComment")
-    public String saveComment(@ModelAttribute("comments") Comments comments) {
-        commentService.save(comments);
+    public String saveComment(@ModelAttribute("comments") Comments comments,@RequestParam("postId") int postId) {
+        commentService.save(comments,postId);
         return "redirect:/";
     }
 
@@ -51,7 +51,7 @@ public class CommentController {
         return "editComment";
     }
     @PostMapping("/updateComment/{id}")
-    public String updatePost(@ModelAttribute("comments") Comments comments,@PathVariable long id){
+    public String updateComment(@ModelAttribute("comments") Comments comments,@PathVariable long id){
         commentService.update(comments,id);
         return "redirect:/";
     }

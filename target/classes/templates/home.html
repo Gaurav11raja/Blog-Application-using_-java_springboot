@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/homeStyle.css}" />
+    <title>Blog - List of Posts</title>
+</head>
+<body>
+
+<header>
+    <h1>My Blog Application</h1><br><br>
+    <a th:href="@{/showForm}">
+        <button>Create new Post</button>
+    </a><br><br>
+    <form th:action="@{/}" method="get">
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    <form th:action="@{/{toggle}( toggle = ${toggle})}" method="get">
+        <input type="hidden" name = "toggle" value = "toggle">
+        <button>Sort(new to old)</button>
+    </form>
+    <br>
+    <form th:action="@{/filter}" method="post">
+        <label for="author">Filter by Author:</label>
+        <select id="author" name="author" multiple>
+            <!-- Populate the dropdown options dynamically from the database -->
+            <th:block th:each="author : ${allAuthor}">
+                <option name="author" th:text="${author}"></option>
+            </th:block>
+        </select>
+
+        <label for="tags">Filter by Tags:</label>
+        <select id="tags" name="tags" multiple>
+
+            <th:block th:each="tags : ${allTags}">
+                <option name="tags" th:text="${tags.name}"></option>
+            </th:block>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <a th:href="@{/}">
+        <button>Default View</button>
+    </a><br><br>
+</header>
+<main>
+    <section class="blog-list">
+        <article th:each="posts : ${post}">
+            <h2 th:text="${posts.title}"></h2>
+            <p class="excerpt" th:text="${posts.excerpt}"></p>
+            <a th:href="@{/viewPost/{id}(id=${posts.id})}">Read More</a>
+        </article>
+    </section>
+    <div th:if="${post.totalPages > 1}">
+        <ul class="pagination">
+            <li th:if="${post.hasPrevious()}" class="page-item">
+                <a class="page-link" th:href="@{/(page=${post.number - 1},size=${post.size})}">Previous</a>
+            </li>
+            <li th:if="${post.hasNext()}" class="page-item">
+                <a class="page-link" th:href="@{/(page=${post.number + 1},size=${post.size})}">Next</a>
+            </li>
+        </ul>
+    </div>
+</main>
+
+</body>
+</html>

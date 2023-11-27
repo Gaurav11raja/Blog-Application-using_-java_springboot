@@ -50,7 +50,7 @@ public class PostService {
         Pageable pageable = PageRequest.of(page, size);
         if(toggle != null)
         {
-            return postRepository.findAllByOrderByCreatedDesc(pageable);
+            return postRepository.findAllByOrderByCreatedAtDesc(pageable);
         }
         else
             return postRepository.findAll(pageable);

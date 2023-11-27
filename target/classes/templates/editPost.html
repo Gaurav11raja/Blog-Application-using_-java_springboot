@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/editPostStyle.css}" />
+    <title>Blog - Create/Update Post</title>
+</head>
+<body>
+
+<header>
+    <h1>My Blog Application</h1><br><br>
+    <a th:href="@{/}">Back to Home</a><br><br>
+</header>
+
+<main>
+    <section>
+        <form th:action="@{/updatePost/{id}(id=${post.id})}" method="post" th:object="${post}">
+
+
+            <label for="title">Title:</label><br><br>
+
+            <input type="text" id="title" name="title" th:field="*{title}" required><br><br>
+
+            <label for="author">Author:</label><br><br>
+            <input type="text" id="author" name="author" th:field="*{author}" required><br><br>
+
+            <label for="excerpt">Excerpt:</label><br><br>
+            <input type="text" id="excerpt" name="excerpt" th:field="*{excerpt}" required><br><br>
+
+            <label for="tags">Tags </label><br><br>
+            <input type="text" id="tags" name="tag" th:value="${tag}"><br><br>
+
+            <label for="content">Content:</label><br><br>
+            <textarea id="content" name="content" rows="6" th:field="*{content}" required></textarea><br><br>
+
+            <button type="submit">Make Changes</button><br><br>
+        </form>
+    </section>
+
+</main>
+
+
+</body>
+</html>
