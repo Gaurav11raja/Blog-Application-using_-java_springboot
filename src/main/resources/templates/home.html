@@ -17,11 +17,20 @@
         <input type="text" name="search" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-    <form th:action="@{/{toggle}( toggle = ${toggle})}" method="get">
-        <input type="hidden" name = "toggle" value = "toggle">
-        <button>Sort(new to old)</button>
+
+    <a th:href="@{/}">
+        <button>Default View</button>
+    </a><br><br>
+</header>
+<div>
+    <form th:action="@{/( sortOrder = ${sortOrder})}" method="get">
+        Sort by Date :
+        <select name="sortOrder">
+            <option th:value="asc">Ascending</option>
+            <option th:value="desc">Descending</option>
+        </select>
+        <button type="submit">Sort</button>
     </form>
-    <br>
     <form th:action="@{/filter}" method="post">
         <label for="author">Filter by Author:</label>
         <select id="author" name="author" multiple>
@@ -41,26 +50,24 @@
 
         <button type="submit">Filter</button>
     </form>
-
-    <a th:href="@{/}">
-        <button>Default View</button>
-    </a><br><br>
-</header>
+</div>
 <main>
     <section class="blog-list">
         <article th:each="posts : ${post}">
             <h2 th:text="${posts.title}"></h2>
-            <p class="excerpt" th:text="${posts.excerpt}"></p>
+            <h4 th:text="'By : '+${posts.author}"></h4>
+            <p th:text="${posts.createdAt}"></p><br>
+            <p class="excerpt" th:text="${posts.excerpt}"></p><br><br>
             <a th:href="@{/viewPost/{id}(id=${posts.id})}">Read More</a>
         </article>
     </section>
     <div th:if="${post.totalPages > 1}">
         <ul class="pagination">
             <li th:if="${post.hasPrevious()}" class="page-item">
-                <a class="page-link" th:href="@{/(page=${post.number - 1},size=${post.size})}">Previous</a>
+                <a class="page-link" th:href="@{/(page=${post.number - 1},size=${post.size},sortOrder=${sortOrder})}">Previous</a>
             </li>
             <li th:if="${post.hasNext()}" class="page-item">
-                <a class="page-link" th:href="@{/(page=${post.number + 1},size=${post.size})}">Next</a>
+                <a class="page-link" th:href="@{/(page=${post.number + 1},size=${post.size},sortOrder=${sortOrder})}">Next</a>
             </li>
         </ul>
     </div>

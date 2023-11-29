@@ -46,11 +46,15 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public Page<Posts> findPaginated(int page, int size, String toggle) {
+    public Page<Posts> findPaginated(int page, int size, String sortOrder) {
         Pageable pageable = PageRequest.of(page, size);
-        if(toggle != null)
+        if(sortOrder != null)
         {
+            if(sortOrder.equals("desc")){
             return postRepository.findAllByOrderByCreatedAtDesc(pageable);
+            }else {
+                return postRepository.findAllByOrderByCreatedAtAsc(pageable);
+            }
         }
         else
             return postRepository.findAll(pageable);

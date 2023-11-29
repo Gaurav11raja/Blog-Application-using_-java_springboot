@@ -34,15 +34,16 @@ public class PostController {
     @GetMapping("/")
     public String showHome(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "4") int size,
-                           @RequestParam(name = "toggle", required = false) String toggle,
+                           @RequestParam(name = "sortOrder", required = false) String sortOrder,
                            @RequestParam(name = "search", required = false) String search) {
 
         if (search != null && !search.isEmpty()) {
             Page<Posts> postsPage = postService.fullTextSearch(search, PageRequest.of(page, size));
             model.addAttribute("post", postsPage);
         } else {
-            Page<Posts> postsPage = postService.findPaginated(page, size, toggle);
+            Page<Posts> postsPage = postService.findPaginated(page, size, sortOrder);
             model.addAttribute("post", postsPage);
+            model.addAttribute("sortOrder",sortOrder);
         }
         List<Tags> allTags = tagService.getAllTags();
         model.addAttribute("allAuthor",postService.getAllAuthors());

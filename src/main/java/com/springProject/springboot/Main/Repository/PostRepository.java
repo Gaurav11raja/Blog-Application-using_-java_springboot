@@ -26,4 +26,6 @@ public interface PostRepository extends JpaRepository<Posts,Long> {
     List<Posts> findByAuthorIn(List<String> authors);
 
     List<Posts> findByTags_NameIn(List<String> tags);
+
+    Page<Posts> findAllByOrderByCreatedAtAsc(Pageable pageable);
 }
