@@ -9,18 +9,31 @@
 <body>
 
 <header>
-    <h1>My Blog Application</h1><br><br>
+<div>
+    <h1>My Blog Application</h1>
+    <h3 th:if="${#authorization.expression('isAuthenticated()')}"
+        th:text="'Welcome, ' + ${#authentication.principal.username}"></h3>
+</div>
+    <form th:action="@{/}" method="get" id="search-form">
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form><br>
     <a th:href="@{/showForm}">
         <button>Create new Post</button>
     </a><br><br>
-    <form th:action="@{/}" method="get">
-        <input type="text" name="search" placeholder="Search...">
-        <button type="submit">Search</button>
-    </form>
-
     <a th:href="@{/}">
         <button>Default View</button>
     </a><br><br>
+    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    </th:block>
+    <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+        <form th:action="@{/showMyLoginPage}" method="get">
+            <input type="submit" value="Login">
+        </form>
+    </th:block>
 </header>
 <div>
     <form th:action="@{/( sortOrder = ${sortOrder})}" method="get">
@@ -34,7 +47,6 @@
     <form th:action="@{/filter}" method="post">
         <label for="author">Filter by Author:</label>
         <select id="author" name="author" multiple>
-            <!-- Populate the dropdown options dynamically from the database -->
             <th:block th:each="author : ${allAuthor}">
                 <option name="author" th:text="${author}"></option>
             </th:block>
@@ -48,7 +60,7 @@
             </th:block>
         </select>
 
-        <button type="submit">Filter</button>
+        <button id="filter" type="submit">Filter</button>
     </form>
 </div>
 <main>

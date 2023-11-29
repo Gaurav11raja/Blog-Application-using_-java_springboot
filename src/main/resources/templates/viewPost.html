@@ -30,6 +30,7 @@
         </p>
         <p class="content" th:text="${post.content}"></p>
     </article>
+    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
     <form th:action="@{/editPost/{id}(id=${post.id})}" method="post">
         Edit the Post:-
         <button type="submit">Edit</button>
@@ -38,6 +39,7 @@
         Delete the Post:-
         <button type="submit">Delete</button>
     </form><br><br>
+    </th:block>
     <section>
         <form th:action="@{/saveComment}" method="post" th:object="${comments}">
             <label for="name">Name:</label>
@@ -59,6 +61,7 @@
             <h2 th:if="${comments.postId == post.id}" th:text="${comments.name}"></h2>
             <p class="excerpt" th:if="${comments.postId == post.id}" th:text="${comments.email}"></p>
             <p th:if="${comments.postId == post.id}" th:text="${comments.comment}"></p>
+            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
             <form th:if="${comments.postId == post.id}" th:action="@{/editComment/{id}(id=${comments.id})}" method="post">
                 Edit the Comment:-
                 <button type="submit">Edit</button>
@@ -67,6 +70,7 @@
                 Delete the Comment:-
                 <button type="submit">Delete</button>
             </form>
+            </th:block>
         </article>
     </section>
 

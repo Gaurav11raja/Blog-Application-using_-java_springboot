@@ -1,10 +1,13 @@
 package com.springProject.springboot.Main.controller;
 
-import com.springProject.springboot.Main.entities.Comments;
-import com.springProject.springboot.Main.entities.Posts;
-import com.springProject.springboot.Main.entities.Tags;
+import com.springProject.springboot.Main.Repository.RolesRepository;
+import com.springProject.springboot.Main.Repository.UserRepository;
+import com.springProject.springboot.Main.entities.*;
 import com.springProject.springboot.Main.service.CommentService;
+import com.springProject.springboot.Main.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,16 +16,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
 public class CommentController {
     private CommentService commentService;
+    private UserRepository userRepository;
+    private PostService postService;
+    private RolesRepository rolesRepository;
 
     @Autowired
-    public CommentController(CommentService commentService){
+    public CommentController(CommentService commentService,PostService postService,
+                             RolesRepository rolesRepository, UserRepository userRepository){
         this.commentService=commentService;
+        this.userRepository=userRepository;
+        this.postService=postService;
+        this.rolesRepository=rolesRepository;
     }
 
     @PostMapping("/saveComment")
@@ -39,13 +48,33 @@ public class CommentController {
 
     @PostMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable long id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userRepository.findByUsername(authentication.getName());
+        Comments commentById = commentService.findByID(id);
+        Posts post = postService.findByID(commentById.getPostId());
+        Roles roles =rolesRepository.findByUsername(user.getUsername());
+        if (roles.getRole().equals("ROLE_AUTHOR")) {
+            if (!user.getPosts().contains(post)) {
+                return "access-denied";
+            }
+        }
         commentService.delete(id);
         return "redirect:/";
     }
     @PostMapping("/editComment/{id}")
     public String editComment(@PathVariable long id,Model model){
-        Comments comments = commentService.findByID(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userRepository.findByUsername(authentication.getName());
+        Comments commentById = commentService.findByID(id);
+        Posts post = postService.findByID(commentById.getPostId());
+        Roles roles =rolesRepository.findByUsername(user.getUsername());
+        if (roles.getRole().equals("ROLE_AUTHOR")) {
+            if (!user.getPosts().contains(post)) {
+                return "access-denied";
+            }
+        }
 
+        Comments comments = commentService.findByID(id);
         model.addAttribute("comments",comments);
 
         return "editComment";

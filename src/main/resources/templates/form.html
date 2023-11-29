@@ -18,21 +18,15 @@
 <main>
     <section>
         <form th:action="@{/savePost}" method="post" th:object="${post}">
-            <!-- th:object="${post}" binds the form to a Post object (assuming you have a Post class) -->
 
             <label for="title">Title:</label><br><br>
-            <!-- Use th:field to bind form fields to object properties -->
             <input type="text" id="title" name="title" th:field="*{title}" required><br><br>
-
-            <label for="author">Author:</label><br><br>
-            <input type="text" id="author" name="author" th:field="*{author}" required><br><br>
 
             <label for="excerpt">Excerpt:</label><br><br>
             <input type="text" id="excerpt" name="excerpt" th:field="*{excerpt}" required><br><br>
 
             <label for="tags">Tags:</label><br><br>
             <input type="text" id="tags" name="tagStore" required><br><br>
-
 
             <label for="content">Content:</label><br><br>
             <textarea id="content" rows="6" th:field="*{content}" required></textarea><br><br>

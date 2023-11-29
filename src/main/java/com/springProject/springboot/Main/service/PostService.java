@@ -27,10 +27,11 @@ public class PostService {
 
 
     @Transactional
-    public void savePost(Posts posts) {
+    public void savePost(Posts posts,String author) {
         posts.setIsPublished("Yes");
         posts.setUpdatedAt(new Date());
         posts.setCreatedAt(new Date());
+        posts.setAuthor(author);
         postRepository.save(posts);
     }
 
