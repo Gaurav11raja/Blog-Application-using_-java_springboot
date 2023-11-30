@@ -1,9 +1,7 @@
 package com.springProject.springboot.Main.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -22,8 +20,8 @@ public class Comments {
             this.id = id;
         }
 
+        @Column(columnDefinition = "TEXT")
         private String comment;
-        private int postId;
         private Date createdAt;
 
     public void setCreatedAt(Date createdAt) {
@@ -56,14 +54,6 @@ public class Comments {
 
         public void setComment(String comment) {
             this.comment = comment;
-        }
-
-        public int getPostId() {
-            return postId;
-        }
-
-        public void setPostId(int postId) {
-            this.postId = postId;
         }
 
         public Date getCreatedAt() {

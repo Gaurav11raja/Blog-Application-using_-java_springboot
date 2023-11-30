@@ -36,7 +36,10 @@ public class CommentController {
 
     @PostMapping("/saveComment")
     public String saveComment(@ModelAttribute("comments") Comments comments,@RequestParam("postId") int postId) {
-        commentService.save(comments,postId);
+        Posts post=postService.findByID(postId);
+        post.getComments().add(comments);
+        postService.savePostComment(post);
+        commentService.save(comments);
         return "redirect:/";
     }
 
@@ -47,11 +50,11 @@ public class CommentController {
     }
 
     @PostMapping("/deleteComment/{id}")
-    public String deleteComment(@PathVariable long id){
+    public String deleteComment(@PathVariable long id,@RequestParam("postId") long postId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Users user = userRepository.findByUsername(authentication.getName());
         Comments commentById = commentService.findByID(id);
-        Posts post = postService.findByID(commentById.getPostId());
+        Posts post = postService.findByID(postId);
         Roles roles =rolesRepository.findByUsername(user.getUsername());
         if (roles.getRole().equals("ROLE_AUTHOR")) {
             if (!user.getPosts().contains(post)) {
@@ -62,11 +65,11 @@ public class CommentController {
         return "redirect:/";
     }
     @PostMapping("/editComment/{id}")
-    public String editComment(@PathVariable long id,Model model){
+    public String editComment(@PathVariable long id,Model model,@RequestParam("postId") long postId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Users user = userRepository.findByUsername(authentication.getName());
         Comments commentById = commentService.findByID(id);
-        Posts post = postService.findByID(commentById.getPostId());
+        Posts post = postService.findByID(postId);
         Roles roles =rolesRepository.findByUsername(user.getUsername());
         if (roles.getRole().equals("ROLE_AUTHOR")) {
             if (!user.getPosts().contains(post)) {

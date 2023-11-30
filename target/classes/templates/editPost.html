@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +24,10 @@
 
             <input type="text" id="title" name="title" th:field="*{title}" required><br><br>
 
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
             <label for="author">Author:</label><br><br>
             <input type="text" id="author" name="author" th:field="*{author}" required><br><br>
-
+            </div>
             <label for="excerpt">Excerpt:</label><br><br>
             <input type="text" id="excerpt" name="excerpt" th:field="*{excerpt}" required><br><br>
 

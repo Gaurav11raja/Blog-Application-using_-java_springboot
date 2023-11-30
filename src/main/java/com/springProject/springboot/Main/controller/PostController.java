@@ -133,6 +133,8 @@ public class PostController {
                 return "access-denied";
             }
         }
+        user.getPosts().remove(post);
+        userRepository.save(user);
         postService.delete(id);
         return "redirect:/";
     }

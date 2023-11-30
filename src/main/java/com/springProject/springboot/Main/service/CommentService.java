@@ -29,10 +29,9 @@ public class CommentService {
     }
 
     @Transactional
-    public void save(Comments comments,int postId){
+    public void save(Comments comments){
         comments.setCreatedAt(new Date());
         comments.setUpdatedAt(new Date());
-        comments.setPostId(postId);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Users users=userRepository.findByUsername(authentication.getName());
         if(authentication!=null && authentication.isAuthenticated()){
@@ -58,7 +57,6 @@ public class CommentService {
         comments.setUpdatedAt(new Date());
         comments.setCreatedAt(comment.getCreatedAt());
         comments.setName(comment.getName());
-        comments.setPostId(comment.getPostId());
         commentRepository.save(comments);
 
     }

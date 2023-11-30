@@ -89,4 +89,8 @@ public class PostService {
             return Collections.emptyList(); // or return all posts
         }
     }
+
+    public void savePostComment(Posts post) {
+        postRepository.save(post);
+    }
 }

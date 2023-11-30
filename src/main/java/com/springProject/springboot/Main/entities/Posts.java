@@ -1,9 +1,11 @@
 package com.springProject.springboot.Main.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.engine.internal.Cascade;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,12 +25,26 @@ public class Posts {
     private Date createdAt =new Date();
     private Date updatedAt;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_comment")
+    private List<Comments> comments;
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "post_tags",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
+
+
     private Set<Tags> tags = new HashSet<>();
 
     public Set<Tags> getTags() {
