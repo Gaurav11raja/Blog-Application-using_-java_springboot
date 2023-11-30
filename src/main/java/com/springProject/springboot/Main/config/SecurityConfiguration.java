@@ -2,6 +2,7 @@ package com.springProject.springboot.Main.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,9 +17,11 @@ import javax.sql.DataSource;
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests(configurer ->
+        http
+                .csrf(csrf->csrf.disable())
+                .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers("/","homeStyle.css","/filter","filterStyle.css",
+                                .requestMatchers("/","/api**","homeStyle.css","/filter","filterStyle.css",
                                         "/viewPost/{id}","viewPostStyle.css","loginStyle.css",
                                         "/showMySignUpPage","/register","/saveComment",
                                 "/createUserStyle.css").permitAll()
@@ -31,6 +34,7 @@ public class SecurityConfiguration {
                 .logout(LogoutConfigurer::permitAll)
                 .exceptionHandling(configurer->configurer
                         .accessDeniedPage("/access-denied"));
+        http.httpBasic(Customizer.withDefaults());
         return http.build();
     }
     @Bean

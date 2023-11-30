@@ -1,5 +1,6 @@
 package com.springProject.springboot.Main.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ public class Tags {
     private String name;
     private Date createdAt = new Date();
     private Date updatedAt;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "post_tags",

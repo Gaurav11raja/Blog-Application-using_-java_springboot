@@ -1,5 +1,6 @@
 package com.springProject.springboot.Main.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.engine.internal.Cascade;
 
@@ -25,6 +26,7 @@ public class Posts {
     private Date createdAt =new Date();
     private Date updatedAt;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_comment")
     private List<Comments> comments;
@@ -36,6 +38,7 @@ public class Posts {
     public void setComments(List<Comments> comments) {
         this.comments = comments;
     }
+
 
     @ManyToMany
     @JoinTable(
