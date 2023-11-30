@@ -20,7 +20,8 @@ public class SecurityConfiguration {
                         configurer
                                 .requestMatchers("/","homeStyle.css","/filter","filterStyle.css",
                                         "/viewPost/{id}","viewPostStyle.css","loginStyle.css",
-                                        "/showMySignUpPage","/register","/saveComment").permitAll()
+                                        "/showMySignUpPage","/register","/saveComment",
+                                "/createUserStyle.css").permitAll()
                                 .anyRequest()
                                 .authenticated())
                 .formLogin(form->
